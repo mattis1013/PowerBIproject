@@ -1,13 +1,119 @@
 ﻿# PowerBIproject
 
-Data : sales_2.csv
-Power Querry Transformations (vérification : qualité colonnes, distributionet profil , normalisation, Formats, types etc)
-Modélisation des données - schéma en étoile, relations 1*
-Rapport : définition d'un thème pour le style
-Mesures/KPI's : 
-▪	Total ventes
-▪	Nombre de commandes
-▪	Quantité vendue
-▪	Commande moyenne
+# 📊 Sales Dashboard — Power BI
 
+> Atelier de bout en bout : de la donnée brute au rapport interactif multi-onglets avec modèle en étoile, mesures DAX, filtres, tooltips et sécurité.
+
+---
+
+## 📁 Données source
+
+| Fichier | Description |
+|---|---|
+| `sales_2.csv` | Données de ventes transactionnelles — 13 colonnes brutes |
+
+---
+
+## ⚙️ Power Query — Nettoyage & Transformation
+
+- Analyse de qualité : **qualité des colonnes**, **distribution** et **profil**
+- Vérification et correction des types de données
+- Renommage des colonnes :
+
+| Colonne initiale | Nouveau nom |
+|---|---|
+| OrderID | Id commande |
+| CustomerID | Id client |
+| CompanyName | Nom client |
+| ProductID | Id produit |
+| ProductName | Nom produit |
+| Category | Catégorie produit |
+| RegionID | Id région |
+| RegionName | Nom région |
+| OrderDate | Date commande |
+| Quantity | Quantité |
+| UnitPrice | Prix unitaire |
+| TotalPrice | Prix total |
+| OrderStatus | Statut commande |
+
+- Normalisation en 4 tables via l'option **Référence** :
+  - `Clients` — regroupement par Id client & Nom client
+  - `Produits` — regroupement par Id produit, Nom produit & Catégorie
+  - `Régions` — regroupement par Id région & Nom région
+  - `Ventes` — table de faits (colonnes redondantes supprimées)
+
+---
+
+## 🗂️ Modèle de données — Schéma en étoile
+
+```
+         Clients
+            |
+Régions — Ventes — Produits
+```
+
+- Relations **1 à plusieurs** entre la table de faits `Ventes` et chaque dimension
+- Relations vérifiées automatiquement puis recréées manuellement pour validation
+
+---
+
+## 📐 Mesures DAX
+
+Toutes les mesures sont regroupées dans une table dédiée `Mesures`.
+
+### Onglet Suivi des ventes
+
+```dax
+Total ventes = SUM(Ventes[Prix total])
+Nombre de commandes = DISTINCTCOUNT(Ventes[Id commande])
+Quantité vendue = SUM(Ventes[Quantité])
+Commande moyenne = DIVIDE([Total ventes], [Nombre de commandes])
+```
+
+### Onglet Commandes annulées
+
+```dax
+Total commandes annulées =
+    CALCULATE(COUNT(Ventes[Id commande]), Ventes[Statut commande] = "Cancelled")
+
+Montant commandes annulées =
+    CALCULATE(SUM(Ventes[Prix total]), Ventes[Statut commande] = "Cancelled")
+
+Pourcentage commandes annulées =
+    DIVIDE([Total commandes annulées], [Nombre de commandes])
+```
+
+---
+
+## 📊 Rapport — Structure des onglets
+
+### Onglet 1 — Suivi des ventes
+
+| Visuel | Détail |
+|---|---|
+| 4 KPI | Total ventes · Nb commandes · Quantité vendue · Commande moyenne |
+| Courbe / Aires | Évolution du CA et des volumes dans le temps |
+| Barres horizontales | Répartition du CA par région |
+| Donut | Répartition du CA par catégorie de produit |
+| Tableau | Détail des commandes (id, client, produit…) |
+| Filtres | Plage de dates · Statut commande · Région |
+
+### Onglet 2 — Commandes annulées
+
+| Visuel | Détail |
+|---|---|
+| 3 KPI | Total annulées · Montant annulé · % annulations |
+| Courbe | Évolution du % et du nombre de commandes annulées |
+| Histogramme vertical | Part des annulations par région |
+| Treemap | CA annulé par catégorie et par produit |
+| Ruban (Ribbon) | Évolution trimestrielle des annulations par produit |
+
+### Navigation & Tooltips
+
+- Menu latéral avec icônes — navigation entre les onglets
+- **Tooltip 1** (histogramme région) → courbe d'évolution des ventes
+- **Tooltip 2** (donut catégorie) → ruban d'évolution par produit
+
+
+```
 
