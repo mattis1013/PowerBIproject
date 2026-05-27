@@ -114,17 +114,6 @@ Pourcentage commandes annulées =
 
 ---
 
-## 🎨 Thème & Style
-
-| Paramètre | Valeur |
-|---|---|
-| Thème | JSON personnalisé importé |
-| Fond de page | `#1E2D38` |
-| Couleur des briques | `#232448` |
-| Hauteur de page | 2000 px |
-
----
-
 ## ⭐ Fonctionnalités avancées (Bonus)
 
 ### Signets (Bookmarks)
