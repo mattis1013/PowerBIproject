@@ -1,5 +1,3 @@
-﻿# PowerBIproject
-
 # 📊 Sales Dashboard — Power BI
 
 > Atelier de bout en bout : de la donnée brute au rapport interactif multi-onglets avec modèle en étoile, mesures DAX, filtres, tooltips et sécurité.
@@ -114,6 +112,49 @@ Pourcentage commandes annulées =
 - **Tooltip 1** (histogramme région) → courbe d'évolution des ventes
 - **Tooltip 2** (donut catégorie) → ruban d'évolution par produit
 
+---
+
+## 🎨 Thème & Style
+
+| Paramètre | Valeur |
+|---|---|
+| Thème | JSON personnalisé importé |
+| Fond de page | `#1E2D38` |
+| Couleur des briques | `#232448` |
+| Hauteur de page | 2000 px |
+
+---
+
+## ⭐ Fonctionnalités avancées (Bonus)
+
+### Signets (Bookmarks)
+- **Mobiles** — filtre sur Smartphone, Headphone, SmartWatch
+- **Bureautique** — filtre sur Tablet, Monitor, Laptop, Keyboard, Mouse
+- **Reset** — réinitialisation de tous les filtres
+
+### Sécurité (Row-Level Security)
+- **Rôle 1** — accès uniquement aux sociétés `AI Systems` et `TechCorp`
+- **Rôle 2** — accès uniquement à la région `South`
+
+### Vue mobile
+- Premier onglet adapté à la mise en page mobile
+- Filtres conservés (date, statut, région)
+- Tableau détaillé omis
+
+### KPI Donut personnalisé
+- Visualisation **PayPal KPI Donut Chart**
+- Affiche la part du CA filtré autour du KPI "Total ventes"
+
+### Publication
+- Rapport publié sur **Power BI Service** via le fichier `.pbix`
+
+---
+
+## 📂 Fichiers du projet
 
 ```
-
+📦 projet-powerbi-sales
+ ┣ 📄 sales_2.csv          ← données source
+ ┣ 📄 dashboard.pbix       ← fichier Power BI
+ ┗ 📄 README.md
+```
