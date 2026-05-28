@@ -144,6 +144,6 @@ Pourcentage commandes annulées =
 ```
 📦 projet-powerbi-sales
  ┣ 📄 sales_2.csv          ← données source
- ┣ 📄 dashboard.pbix       ← fichier Power BI
+ ┣ 📄 mon_rapport_mattis_sales.pbix       ← fichier Power BI
  ┗ 📄 README.md
 ```
